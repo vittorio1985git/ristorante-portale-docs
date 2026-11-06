@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manuale Utente e Tecnico Completo — Ecosistema Gestione Ristorante & Console Root</title>
+<style>
+    :root {
+        --primary: #1A237E;
+        --secondary: #0D47A1;
+        --accent: #E65100;
+        --teal: #00838F;
+        --green: #2E7D32;
+        --red: #C62828;
+        --purple: #6A1B9A;
+        --dark: #263238;
+        --light: #ECEFF1;
+        --amber: #FFB300;
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background-color: #F4F6F8;
+        color: #212121;
+        line-height: 1.6;
+        display: flex;
+    }
+    /* SIDEBAR NAVIGAZIONE */
+    .sidebar {
+        width: 310px;
+        background: var(--dark);
+        color: #FFFFFF;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow-y: auto;
+        padding: 20px 16px;
+        box-shadow: 4px 0 14px rgba(0,0,0,0.2);
+        z-index: 100;
+    }
+    .sidebar h2 {
+        color: var(--amber);
+        font-size: 18px;
+        margin-top: 0;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #37474F;
+        text-align: center;
+    }
+    .sidebar .nav-group {
+        font-size: 11.5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #90A4AE;
+        margin: 16px 0 6px 6px;
+        font-weight: bold;
+    }
+    .sidebar a {
+        display: block;
+        color: #ECEFF1;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 13.5px;
+        margin-bottom: 3px;
+        transition: all 0.2s;
+    }
+    .sidebar a:hover {
+        background: #37474F;
+        color: var(--amber);
+        transform: translateX(4px);
+    }
+    /* CONTENUTO PRINCIPALE */
+    .main-content {
+        margin-left: 310px;
+        padding: 36px 48px;
+        max-width: 1280px;
+        width: 100%;
+    }
+    .hero-banner {
+        background: linear-gradient(135deg, #1A237E 0%, #0D47A1 60%, #00838F 100%);
+        color: white;
+        padding: 36px 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 28px rgba(26,35,126,0.22);
+        margin-bottom: 36px;
+    }
+    .hero-banner h1 {
+        margin: 0 0 10px 0;
+        font-size: 32px;
+    }
+    .hero-banner p {
+        margin: 0;
+        font-size: 16.5px;
+        color: #E3F2FD;
+    }
+    .badge-row {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .tech-badge {
+        background: rgba(255,255,255,0.16);
+        border: 1px solid rgba(255,255,255,0.35);
+        color: #FFF;
+        padding: 6px 14px;
+        border-radius: 30px;
+        font-size: 12.5px;
+        font-weight: bold;
+    }
+    /* SEZIONI CAPITOLI */
+    .chapter-card {
+        background: #FFFFFF;
+        border-radius: 18px;
+        padding: 32px 36px;
+        margin-bottom: 36px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+        border-top: 6px solid var(--primary);
+    }
+    .chapter-card.root-theme { border-top-color: var(--purple); }
+    .chapter-card.comanda-theme { border-top-color: var(--secondary); }
+    .chapter-card.cassa-theme { border-top-color: var(--green); }
+    .chapter-card.pren-theme { border-top-color: var(--teal); }
+    .chapter-card.tech-theme { border-top-color: var(--accent); }
+
+    h2.chapter-title {
+        margin-top: 0;
+        font-size: 24px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #ECEFF1;
+    }
+    h3.sub-title {
+        color: var(--dark);
+        font-size: 18.5px;
+        margin-top: 28px;
+        margin-bottom: 12px;
+        border-left: 5px solid var(--teal);
+        padding-left: 12px;
+    }
+
+    /* LAYOUT SCHERMO MOCKUP ANDROID + SPIEGAZIONE */
+    .screen-showcase {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+        align-items: flex-start;
+        margin: 24px 0;
+        background: #F8FAFC;
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid #CFD8DC;
+    }
+    .phone-mockup {
+        width: 350px;
+        min-width: 330px;
+        background: #ECEFF1;
+        border: 10px solid #263238;
+        border-radius: 32px;
+        overflow: hidden;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+        font-size: 12px;
+        flex-shrink: 0;
+    }
+    .phone-statusbar {
+        background: #11171A;
+        color: #FFF;
+        padding: 5px 14px;
+        font-size: 10px;
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+    }
+    .phone-body {
+        padding: 10px;
+    }
+    .screen-details {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    /* ELEMENTI UI FEDELI ALL'APP ANDROID */
+    .ui-header {
+        background: #263238;
+        color: #FFC107;
+        padding: 9px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 13px;
+        border-radius: 6px;
+        margin-bottom: 8px;
+    }
+    .ui-header.purple { background: #6A1B9A; color: #FFF; }
+    .ui-header.navy { background: #1A237E; color: #FFF; }
+    .ui-header.red { background: #C62828; color: #FFF; }
+
+    .ui-breadcrumb {
+        background: #CFD8DC;
+        color: #0D47A1;
+        padding: 6px 10px;
+        font-weight: bold;
+        font-size: 11px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+    }
+    .ui-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+    .ui-card {
+        border-radius: 14px;
+        padding: 14px 8px;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+    }
+    .ui-card .emoji { font-size: 26px; display: block; margin-bottom: 4px; }
+    .ui-card .sub { font-size: 9.5px; opacity: 0.9; font-weight: normal; display: block; margin-top: 2px; }
+
+    .bg-blue { background: #1565C0; }
+    .bg-green { background: #2E7D32; }
+    .bg-purple { background: #6A1B9A; }
+    .bg-teal { background: #00838F; }
+    .bg-orange { background: #E65100; }
+    .bg-red { background: #C62828; }
+    .bg-darkgreen { background: #00695C; }
+    .bg-ruby { background: #880E4F; }
+    .bg-slate { background: #455A64; }
+    .bg-amber { background: #FFB300; color: #000 !important; }
+
+    .ui-btn-row {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 6px;
+    }
+    .ui-btn {
+        flex: 1;
+        padding: 8px 6px;
+        border-radius: 6px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        font-size: 10.5px;
+        border: none;
+    }
+    .ui-input {
+        background: #FFF;
+        border: 1.5px solid #90A4AE;
+        border-radius: 6px;
+        padding: 6px 8px;
+        font-size: 11px;
+        color: #000;
+        font-weight: bold;
+    }
+    .ui-panel-white {
+        background: #FFFFFF;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+    .ui-accordion {
+        padding: 8px 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 11px;
+        border-radius: 5px;
+        margin-bottom: 4px;
+    }
+    .ui-sub-accordion {
+        background: #FFE082;
+        color: #000;
+        padding: 6px 10px;
+        font-weight: bold;
+        font-size: 11px;
+        border-radius: 4px;
+        margin: 3px 6px;
+    }
+    .ui-dish-row {
+        background: #FFF;
+        border-bottom: 2px solid #000;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        font-size: 11px;
+    }
+    .prio-box {
+        border: 2px solid #000;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        background: #FFF;
+    }
+
+    /* TABELLE E CALLOUT */
+    table.manual-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        font-size: 14px;
+    }
+    table.manual-table th {
+        background: var(--dark);
+        color: #FFF;
+        padding: 10px 12px;
+        text-align: left;
+    }
+    table.manual-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #CFD8DC;
+        background: #FFF;
+    }
+    .callout {
+        padding: 14px 18px;
+        border-radius: 10px;
+        margin: 14px 0;
+        font-size: 14px;
+    }
+    .callout.info { background: #E3F2FD; border-left: 5px solid #1565C0; color: #0D47A1; }
+    .callout.warn { background: #FFF8E1; border-left: 5px solid #FFB300; color: #E65100; }
+    .callout.success { background: #E8F5E9; border-left: 5px solid #2E7D32; color: #1B5E20; }
+    .callout.danger { background: #FFEBEE; border-left: 5px solid #C62828; color: #B71C1C; }
+
+    .receipt-preview {
+        font-family: 'Courier New', Courier, monospace;
+        background: #FFF;
+        border: 1px dashed #78909C;
+        padding: 14px;
+        width: 310px;
+        font-size: 11.5px;
+        line-height: 1.25;
+        white-space: pre;
+        margin: 10px auto;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    @media print {
+        .sidebar { display: none; }
+        .main-content { margin-left: 0; padding: 10px; }
+        .chapter-card { page-break-inside: avoid; }
+    }
+</style>
+</head>
+<body>
+
+<!-- ==================== SIDEBAR DI NAVIGAZIONE ==================== -->
+<nav class="sidebar">
+    <h2>🍽️ MANUALE UFFICIALE<br><span style="font-size:12px;color:#B0BEC5;">Gestione Ristorante & Root</span></h2>
+
+    <div class="nav-group">1. Architettura & Tecnologie</div>
+    <a href="#cap1">⚙️ Stack Tecnologico e Rete</a>
+    <a href="#cap1-db">☁️ Struttura Nodi Firebase RTDB</a>
+    <a href="#cap1-print">🖨️ Motori Stampa ESC/POS & Sensori</a>
+
+    <div class="nav-group">2. Console Super-Admin Root</div>
+    <a href="#cap2-home">👑 Selezione Ristorante & Cloud JSON</a>
+    <a href="#cap2-dash">📊 Dashboard 4 Card Ristorante</a>
+    <a href="#cap2-licenza">🛡️ Controllo Licenza & Morosità</a>
+    <a href="#cap2-moduli">🧩 Configurazione Moduli & Layout</a>
+    <a href="#cap2-gallerie">🖼️ Gallerie Loghi Scontrino/Notifiche/QR</a>
+    <a href="#cap2-menu">📖 Gestione Menu Cliente & CSV/XLS</a>
+
+    <div class="nav-group">3. App Ristorante — Accesso & Admin</div>
+    <a href="#cap3-login">🔐 Login Ruoli e Guardiani Sicurezza</a>
+    <a href="#cap3-home">🏠 Dashboard Admin (4 Aree)</a>
+    <a href="#cap3-config">⚙️ Area Configurazione, Menu e Sconti</a>
+    <a href="#cap3-impostazioni">🔊 Impostazioni, Condividi APK e Suonerie</a>
+    <a href="#cap3-telefoni">📱 Blocco Ex-Camerieri e Blocco Turno</a>
+    <a href="#cap3-pulizia">🧹 Pulizia Storici, Prenotazioni e Report</a>
+
+    <div class="nav-group">4. Moduli Speciali Sala</div>
+    <a href="#cap4-consigliati">🌟 Piatti e Ingredienti Consigliati (Max 10)</a>
+    <a href="#cap4-pren-semplice">📋 Prenotazione Semplice (Capienza Sala)</a>
+    <a href="#cap4-pren-tavoli">🚦 Prenotazione a Tavoli & Semaforo</a>
+
+    <div class="nav-group">5. Operatività Sala, Cucina e Cassa</div>
+    <a href="#cap5-comanda">📱 Terminale Comanda Cameriere</a>
+    <a href="#cap5-pesi">⚖️ Pesi Carni Speciali (Post-Invio)</a>
+    <a href="#cap5-cucina">👨‍🍳🔥 Schermi Cucina e Griglia</a>
+    <a href="#cap5-cassa">💶 Terminale Cassa e Strumenti Grafite</a>
+</nav>
+
+<!-- ==================== CONTENUTO PRINCIPALE ==================== -->
+<div class="main-content">
+
+    <div class="hero-banner">
+        <h1>📖 Manuale Utente, Operativo e Tecnico Completo</h1>
+        <p>Guida illustrata passo-passo di tutte le schermate, logiche di business, configurazioni e tecnologie dell'ecosistema <b>Gestione Ristorante (RistoranteApp)</b> e <b>Console Super-Admin Multi-Ristorante (RistoranteRootApp)</b>.</p>
+        <div class="badge-row">
+            <span class="tech-badge">☕ Java Android SDK</span>
+            <span class="tech-badge">🔥 Firebase Realtime Database</span>
+            <span class="tech-badge">🖨️ ESC/POS Raw Socket TCP :9100</span>
+            <span class="tech-badge">📘 Bluetooth SPP RFCOMM</span>
+            <span class="tech-badge">📄 Android PrintManager / WebView PDF</span>
+            <span class="tech-badge">📊 Parser XML Excel (.XLS) & .CSV</span>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- CAPITOLO 1: ARCHITETTURA E TECNOLOGIE                               -->
+    <!-- =================================================================== -->
+    <div class="chapter-card tech-theme" id="cap1">
+        <h2 class="chapter-title">⚙️ 1. Architettura del Sistema e Tecnologie Utilizzate</h2>
+        <p>L'ecosistema software è composto da <b>due applicazioni Android native distinte</b> scritte in <b>Java</b>, progettate per lavorare in sincronia in tempo reale tramite <b>Google Firebase Realtime Database</b>:</p>
+        <ul>
+            <li><b>1. App Ristoratore (<code>Gestione Ristorante / RistoranteApp</code>):</b> installata sui telefoni dei camerieri, sui tablet di Cucina/Griglia e sul terminale Cassa/Admin del singolo locale.</li>
+            <li><b>2. Console Super-Admin (<code>RistoranteRootApp</code>):</b> installata esclusivamente sul dispositivo del fornitore/amministratore del software, capace di connettersi dinamicamente a infiniti ristoranti caricando i rispettivi file <code>google-services.json</code> nel proprio Cloud personale.</li>
+        </ul>
+
+        <h3 class="sub-title" id="cap1-db">☁️ 1.1 Struttura Completa dei Nodi Firebase Realtime Database</h3>
+        <table class="manual-table">
+            <thead>
+                <tr>
+                    <th>Nodo Firebase</th>
+                    <th>Scopo e Contenuto Tecnico</th>
+                    <th>Chi Legge / Scrive</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>configurazione/</code></td>
+                    <td>Contiene l'intero listino: Piatti, Ingredienti (con prezzo aggiunta e detrazione rimozione), <code>coperto_adulti</code>, <code>coperto_bambini</code>, <code>sala_bambini</code>, abbreviazioni di stampa, disponibilità giornaliera e flag Consigliati (priorità 1-10).</td>
+                    <td>Admin Locale & Console Root</td>
+                </tr>
+                <tr>
+                    <td><code>impostazioni_app/</code></td>
+                    <td>Configurazione globale del locale: modalità reparti (<code>SOLO_CUCINA</code>, <code>SOLO_GRIGLIA</code>, <code>ENTRAMBI</code>), 4 regole di smistamento, stile comande (<code>NORMALE</code>, <code>PERSONALIZZATA</code>, <code>TABELLARE</code>), ordine sezioni, loghi Base64, QR Code e modalità prenotazioni (<code>SEMPLICE</code> o <code>TAVOLI</code>).</td>
+                    <td>Console Root & Admin Locale</td>
+                </tr>
+                <tr>
+                    <td><code>tavoli_attivi/</code></td>
+                    <td>Contiene tutti i tavoli attualmente aperti in sala (<code>tavolo_1</code>, <code>tavolo_2</code>...), con versione comanda, invii progressivi (Ordine Iniziale, Aggiornamento 1, 2...), righe piatti, variazioni, pesi in grammi e stati di preparazione cucina/griglia.</td>
+                    <td>Comanda, Cucina, Griglia, Cassa</td>
+                </tr>
+                <tr>
+                    <td><code>storico/{dd-MM-yyyy}/</code></td>
+                    <td>Archivio storico dei conti chiusi in Cassa divisi per data, utilizzato per il calcolo dei Report analitici e soggetto a pulizia periodica tramite range di date.</td>
+                    <td>Cassa, Report, Pulizia Storici</td>
+                </tr>
+                <tr>
+                    <td><code>prenotazioni_config_semplice/</code><br><code>prenotazioni_config_standard/</code></td>
+                    <td>Parametri di default della sala: Capienza massima persone (es. 80) per la modalità Semplice, oppure numero tavoli standard e regole settimanali (Lun-Dom) per la modalità a Tavoli.</td>
+                    <td>Admin Locale</td>
+                </tr>
+                <tr>
+                    <td><code>prenotazioni_giornaliere/{yyyy-MM-dd}/</code></td>
+                    <td>Archivio delle prenotazioni per singola data del calendario (divise in turni Pranzo e Cena), con protezione automatica dei giorni già personalizzati e pulizia riservata alle sole date passate (<code>&lt; oggi</code>).</td>
+                    <td>Admin Locale</td>
+                </tr>
+                <tr>
+                    <td><code>dispositivi_registrati/</code><br><code>blocco_temporaneo_collaboratori</code></td>
+                    <td>Elenco dei telefoni censiti con Codice Hardware univoco a 6 cifre, Nome e Cognome operatore, flag di blocco definitivo (ex-camerieri) e blocco temporaneo turno/malattia.</td>
+                    <td>Guardiano Globale, Admin, Root</td>
+                </tr>
+                <tr>
+                    <td><code>stato_licenza_app/</code></td>
+                    <td>Contiene <code>bloccato_da_root</code> (boolean) e <code>motivo_blocco</code> (stringa). Se attivato dalla Console Root per morosità, espelle in tempo reale tutti gli utenti del ristorante.</td>
+                    <td>Console Root (Scrittura), Guardiano App (Lettura)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="sub-title" id="cap1-print">🖨️ 1.2 Tecnologie di Stampa Termica ESC/POS, Sensori Hardware e Failover</h3>
+        <div class="callout info">
+            <b>1. Stampa Diretta ESC/POS via Wi-Fi (Socket TCP Porta 9100) e Bluetooth SPP (UUID 00001101-...):</b><br>
+            • Conversione automatica di Loghi e QR Code in matrici monocromatiche 1-bit Raster tramite comando binario <code>GS v 0</code> (<code>0x1D 0x76 0x30</code>), con larghezza adattiva <b>384px (58mm / 32 colonne)</b> o <b>576px (80mm / 48 colonne)</b>.<br>
+            • Interrogazione bidirezionale pre-stampa e post-stampa dei registri hardware <code>DLE EOT n</code> (<code>0x10 0x04 0x01..0x04</code>) per intercettare <b>Fine Carta</b>, <b>Sportello Aperto</b>, <b>Carta Inceppata</b> o <b>Stampante Offline</b>.<br>
+            • <b>Tolleranza Failover Automatica Cucina ↔ Griglia:</b> quando entrambi i reparti e le rispettive stampanti sono attivi, se una delle due stampanti non risponde, la comanda viene reindirizzata in emergenza sull'altra stampante funzionante avvisando il cameriere con un banner di Warning; l'invio viene bloccato solo se entrambe le stampanti falliscono.
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- CAPITOLO 2: CONSOLE SUPER-ADMIN ROOT (RistoranteRootApp)            -->
+    <!-- =================================================================== -->
+    <div class="chapter-card root-theme" id="cap2-home">
+        <h2 class="chapter-title">👑 2. Manuale Console Super-Admin (RistoranteRootApp)</h2>
+        <p>La <b>Console Root</b> ti permette di gestire da remoto tutti i tuoi clienti ristoratori da un'unica app collegata al tuo Firebase personale (nodo <code>miei_clienti_ristoranti</code>).</p>
+
+        <!-- SCHERMATA 1 ROOT: SELEZIONE RISTORANTE -->
+        <h3 class="sub-title">2.1 Pagina 1: Selezione Ristorante, Console Log e Cloud JSON</h3>
+        <div class="screen-showcase">
+            <div class="phone-mockup">
+                <div class="phone-statusbar"><span>16:20</span><span>📶 5G 🔋 100%</span></div>
+                <div class="phone-body">
+                    <div class="ui-header navy">👑 CONSOLE ROOT MULTI-RISTORANTE</div>
+                    <div class="ui-breadcrumb">🏠 Home Ristoranti</div>
+                    <div class="ui-btn bg-green" style="margin-bottom:8px;display:block;padding:8px;">🟢 FIREBASE CONNESSO (Tocca per leggere i Log)</div>
+
+                    <div class="ui-panel-white">
+                        <div style="text-align:center;color:#1A237E;font-weight:bold;margin-bottom:8px;">🍽️ SELEZIONA IL RISTORANTE DA GESTIRE</div>
+                        <div style="background:#E8F5E9;color:#2E7D32;padding:8px;font-weight:bold;border-radius:6px;margin-bottom:8px;font-size:11px;">
+                            🟢 Connesso a: RISTORANTE FRANCESCO [ristorante-francesco]
+                        </div>
+                        <div style="font-weight:bold;font-size:11px;margin-bottom:4px;">Elenco Ristoranti nel tuo Cloud:</div>
+                        <div class="ui-input" style="margin-bottom:10px;">🍽️ Ristorante Francesco (ristorante-francesco) ▼</div>
+
+                        <div class="ui-btn-row">
+                            <div class="ui-btn bg-blue">📂 + CARICA JSON</div>
+                            <div class="ui-btn bg-red">🗑️ ELIMINA DAL CLOUD</div>
+                        </div>
+                        <div class="ui-btn bg-green" style="padding:11px;font-size:12px;margin-top:6px;">AVANTI (ENTRA NEL RISTORANTE) ➔</div>
+                    </div>
+                    <div class="ui-btn" style="background:#0277BD;padding:9px;">🔄 AGGIORNA DATI RISTORANTE</div>
+                </div>
+            </div>
+
+            <div class="screen-details">
+                <h4>Come funziona questa schermata:</h4>
+                <ol>
+                    <li><b>Barra Diagnostica Live (Verde/Arancione):</b> Mostra in tempo reale se il socket Firebase è connesso. Toccandola si apre la <b>Console Log Diagnostici</b> con gli ultimi 5 minuti di attività del ristorante cliente e i 3 tasti fissi in basso (<code>📋 COPIA TUTTO</code>, <code>🧹 SVUOTA LOG</code>, <code>❌ CHIUDI</code>).</li>
+                    <li><b>Pulsante <code>📂 + CARICA JSON</code>:</b> Permette di selezionare dal telefono il file <code>google-services.json</code> di un nuovo cliente. L'app estrae automaticamente <code>project_id</code>, <code>firebase_url</code>, <code>mobilesdk_app_id</code> e <code>api_key</code>, ti chiede un Alias (es. <i>"Ristorante Da Francesco"</i>) e lo salva per sempre nel tuo Cloud personale.</li>
+                    <li><b>Pulsante <code>🗑️ ELIMINA DAL CLOUD</code>:</b> Rimuove il ristorante selezionato dalla tua lista personale senza cancellare i dati del cliente.</li>
+                    <li><b>Pulsante <code>AVANTI ➔</code>:</b> Entra nella Dashboard operativa del ristorante selezionato.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- SCHERMATA 2 ROOT: DASHBOARD 4 CARD -->
+        <h3 class="sub-title" id="cap2-dash">2.2 Pagina 2: Dashboard del Ristorante Selezionato (4 Grandi Card)</h3>
+        <div class="screen-showcase">
+            <div class="phone-mockup">
+                <div class="phone-statusbar"><span>16:22</span><span>📶 5G 🔋 100%</span></div>
+                <div class="phone-body">
+                    <div class="ui-header navy">👑 CONSOLE ROOT MULTI-RISTORANTE</div>
+                    <div class="ui-breadcrumb">🏠 Home › 🍽️ Ristorante Francesco</div>
+
+                    <div class="ui-card bg-darkgreen" style="margin-bottom:8px;">
+                        📥🛡️ FILE JSON E LICENZA RISTORANTE
+                        <span class="sub">Scarica/Condividi google-services.json • Attiva/Sospendi Licenza</span>
+                    </div>
+                    <div class="ui-card bg-blue" style="margin-bottom:8px;">
+                        ⚙️ IMPOSTAZIONI APP CLIENTE
+                        <span class="sub">Moduli • Formato Tabellare • Ordine Sezioni • Password • Telefoni • Stampanti</span>
+                    </div>
+                    <div class="ui-card bg-orange" style="margin-bottom:8px;">
+                        📖 GESTIONE COMPLETA MENU CLIENTE
+                        <span class="sub">Vedi, modifica, elimina o inserisci tutti i Piatti, Ingredienti e Coperti</span>
+                    </div>
+                    <div class="ui-card bg-green" style="margin-bottom:8px;">
+                        📂 CARICA / SCARICA FILE .CSV E .XLS
+                        <span class="sub">Scarica Modelli Excel/CSV • Importazione Massiva Menu sul Ristorante</span>
+                    </div>
+
+                    <div class="ui-btn" style="background:#0277BD;margin-bottom:5px;">🔄 AGGIORNA DATI RISTORANTE</div>
+                    <div class="ui-btn bg-slate">⬅️ INDIETRO</div>
+                </div>
+            </div>
+
+            <div class="screen-details" id="cap2-licenza">
+                <h4>Le 4 Aree di Controllo Remoto del Cliente:</h4>
+                <ul>
+                    <li><b>Card 1 — 📥🛡️ FILE JSON E LICENZA RISTORANTE:</b>
+                        <ul>
+                            <li><code>📥 SCARICA JSON</code> / <code>📤 CONDIVIDI JSON</code>: recupera dal tuo Cloud l'esatto file <code>google-services.json</code> del cliente (utile se cambi PC o devi ricompilare l'app).</li>
+                            <li><code>⛔ SOSPENDI LICENZA</code> / <code>✅ ATTIVA LICENZA</code>: blocca all'istante tutti i dispositivi del ristorante (Admin, Cassa, Cucina, Camerieri) mostrando un messaggio personalizzabile (es. mancato rinnovo canone).</li>
+                        </ul>
+                    </li>
+                    <li><b>Card 2 — ⚙️ IMPOSTAZIONI APP CLIENTE:</b> Apre una griglia di 4 sotto-schede:
+                        <ol>
+                            <li><b>🧩 Configurazione Moduli e Layout</b> (tutti i flag funzionali con tasto <code>ℹ️</code>);</li>
+                            <li><b>🔑 Password Utenti</b> (lettura e modifica in tempo reale delle password di <code>admin</code>, <code>cucina</code> e <code>comanda</code>);</li>
+                            <li><b>📱🔒 Telefoni e Blocco Turni</b> (elenco dispositivi censiti con stato turno e tasti di pausa/blocco da remoto);</li>
+                            <li><b>🖨️ Cassaforte Stampanti</b> (copia di backup degli IP stampanti Cucina, Griglia e Cassa nel tuo Cloud personale e ripristino con 1 clic sul DB del cliente).</li>
+                        </ol>
+                    </li>
+                    <li><b>Card 3 — 📖 GESTIONE COMPLETA MENU CLIENTE:</b> Permette di vedere l'intero listino del cliente diviso per sezione, modificare prezzi/abbreviazioni, disattivare piatti al volo (<code>🟢/🔴</code>) o aggiungerne di nuovi.</li>
+                    <li><b>Card 4 — 📂 CARICA / SCARICA FILE .CSV E .XLS:</b> Dedicata esclusivamente al download dei modelli a 14 colonne e all'importazione massiva.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SCHERMATA 3 ROOT: MODULI CHECK E GALLERIE -->
+        <h3 class="sub-title" id="cap2-moduli">2.3 Configurazione Moduli, Prenotazioni (Semplice vs Tavoli) e Gallerie Loghi</h3>
+        <div class="screen-showcase">
+            <div class="phone-mockup">
+                <div class="phone-statusbar"><span>16:25</span><span>📶 5G 🔋 100%</span></div>
+                <div class="phone-body">
+                    <div class="ui-header purple">⚙️ MODULI APP: RISTORANTE FRANCESCO</div>
+                    <div class="ui-panel-white" style="font-size:11px;">
+                        <div style="background:#1A237E;color:#FFF;padding:5px;font-weight:bold;margin-bottom:6px;">🏢 SEZIONE REPARTO</div>
+                        <div>⚪ 👨‍🍳 Solo Reparto Cucina</div>
+                        <div>⚪ 🔥 Solo Reparto Griglia</div>
+                        <div style="color:#2E7D32;font-weight:bold;">🔘 👨‍🍳🔥 Entrambi i reparti (Cucina + Griglia)</div>
+                        <hr>
+                        <div style="background:#2E7D32;color:#FFF;padding:5px;font-weight:bold;margin-bottom:6px;">🛠️ SEZIONE FUNZIONALITÀ</div>
+                        <div>☑️ 👶 Gestione Coperto Bambini</div>
+                        <div>☑️ 🧸 Gestione Saletta Baby Sitter</div>
+                        <div>☑️ ⚖️📝 Inserimento Peso Carni da Comanda</div>
+                        <div>☑️ 🌟 Piatti e Ingredienti Consigliati</div>
+                        <div style="color:#00838F;font-weight:bold;">☑️ 📅 Gestione Agenda Prenotazioni</div>
+                        <div style="background:#E0F7FA;padding:6px;border-radius:6px;margin-top:4px;">
+                            <div style="font-weight:bold;color:#004D40;">Tipo Prenotazioni:</div>
+                            <div style="color:#00695C;font-weight:bold;">🔘 📋 Prenotazione Semplice (Max Persone - Default)</div>
+                            <div style="color:#1565C0;">⚪ 🍽️ Prenotazione a Tavoli (Turni + Semaforo)</div>
+                        </div>
+                    </div>
+                    <div class="ui-btn-row">
+                        <div class="ui-btn bg-slate">⬅️ INDIETRO</div>
+                        <div class="ui-btn bg-green">💾 SALVA MODULI</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screen-details" id="cap2-gallerie">
+                <h4>Dettaglio Tecnico di Tutti i Moduli Attivabili dalla Root:</h4>
+                <ul>
+                    <li><b>Sezione Reparto e Smistamento (4 Regole Mutuamente Esclusive):</b>
+                        <ol>
+                            <li><i>Invia tutto sia a Griglia che a Cucina (Default):</i> entrambi i reparti ricevono l'intera comanda con l'etichetta <code>(CUCINA)</code> o <code>(GRIGLIA)</code> accanto a ogni voce.</li>
+                            <li><i>Cucina e Griglia Insieme:</i> unifica i reparti nascondendo le distinzioni.</li>
+                            <li><i>Arriva al Piatto Principale:</i> gli ingredienti extra seguono sempre il reparto del piatto base.</li>
+                            <li><i>Invia ai Reparti di Competenza:</i> ogni reparto riceve solo i propri piatti (e quelli con aggiunte del proprio reparto).</li>
+                        </ol>
+                    </li>
+                    <li><b>Scelta Modalità Prenotazioni (RadioButton):</b>
+                        <ul>
+                            <li><b>📋 Prenotazione Semplice (Default):</b> basata sulla Capienza Massima di Persone della sala (es. 80 persone), con avviso Warning al raggiungimento del tetto, inserimento prenotazioni con tavolo opzionale, gestione tavoli vuoti e Tab Riepilogo Liberi/Occupati.</li>
+                            <li><b>🍽️ Prenotazione a Tavoli:</b> pianta tavoli numerata con 1° Serata e 2° Serata (Doppia Serata) e Semaforo 🟢🟡🔴.</li>
+                        </ul>
+                    </li>
+                    <li id="cap2-menu"><b>Gallerie Multi-Immagine (Logo Notifiche, Logo Scontrino, QR Code):</b> Permettono di caricare e archiviare più loghi/QR (es. <i>Logo Standard, Logo Natalizio, QR Recensioni Google</i>) e attivare con un RadioButton quello desiderato, scegliendo posizione (Sopra, Sotto, Affianco al nome) e allineamento (Sinistra, Centrale, Destra).</li>
+                    <li><b>Stile Comande e Ordine Sezioni:</b> Scelta tra elenco <code>NORMALE</code>, <code>PERSONALIZZATA</code> (per Priorità, Sezione o Ordine inserimento) e <code>TABELLARE</code> (griglia <code>PR|PIATTO|SEZ|REP</code>), più frecce <code>⬆️/⬇️</code> per riordinare le portate del menu.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- CAPITOLO 3: APP RISTORANTE — LOGIN, HOME ADMIN E CONFIGURAZIONI     -->
+    <!-- =================================================================== -->
+    <div class="chapter-card" id="cap3-login">
+        <h2 class="chapter-title">🔐 3. App Ristorante — Accesso, Sicurezza e Area Configurazione</h2>
+
+        <h3 class="sub-title">3.1 Login Utenti, Censimento Obbligatorio Operatore e Guardiani Live</h3>
+        <div class="screen-showcase">
+            <div class="phone-mockup">
+                <div class="phone-statusbar"><span>18:00</span><span>📶 Wi-Fi 🔋 95%</span></div>
+                <div class="phone-body">
+                    <div class="ui-panel-white" style="padding:16px;text-align:center;">
+                        <div style="font-size:36px;">🍽️</div>
+                        <div style="font-size:15px;font-weight:bold;color:#1A237E;margin-bottom:10px;">ACCESSO GESTIONALE RISTORANTE</div>
+                        <div style="text-align:left;font-weight:bold;font-size:11px;margin-bottom:4px;">Seleziona il tuo Ruolo:</div>
+                        <div class="ui-input" style="margin-bottom:10px;text-align:left;">👑 ADMIN ▼</div>
+                        <div style="text-align:left;font-weight:bold;font-size:11px;margin-bottom:4px;">Password di accesso:</div>
+                        <div class="ui-input" style="margin-bottom:10px;text-align:left;">•••••••• &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👁️</div>
+                        <div style="text-align:left;font-size:11px;font-weight:bold;margin-bottom:12px;">☑️ Ricorda accesso su questo dispositivo</div>
+                        <div class="ui-btn bg-blue" style="padding:11px;font-size:13px;">🔓 ENTRA NELL'APPLICAZIONE</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screen-details">
+                <h4>3 Ruoli Operativi e Sicurezza Automatica:</h4>
+                <ul>
+                    <li><b>👑 ADMIN (Default pass: <code>admin123</code>):</b> Accesso completo a Configurazione, Gestione (Comanda, Cassa, Cucina, Griglia), Consigliati, Prenotazioni, Pulizia e Report.</li>
+                    <li><b>👨‍🍳🔥 CUCINA / GRIGLIA (Default pass: <code>cucina123</code>):</b> Accede direttamente agli schermi di reparto abilitati e alla Comanda.</li>
+                    <li><b>📱 COMANDA (Default pass: <code>comanda123</code>):</b> Accede direttamente al terminale di presa comande per i camerieri.</li>
+                </ul>
+                <div class="callout warn">
+                    <b>👋 Registrazione Obbligatoria al Primo Accesso:</b> Quando un cameriere o operatore cucina effettua il primo login, l'app genera un <b>Seriale Hardware Univoco a 6 caratteri</b> (es. <code>#A9F41C</code>) e obbliga l'operatore a inserire il proprio <b>Nome e Cognome</b>. Da quel momento l'Admin può bloccare o mettere in pausa quel telefono in tempo reale!
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD ADMIN 4 CARD -->
+        <h3 class="sub-title" id="cap3-home">3.2 Dashboard Principale Admin e Navigazione Sotto-Pagine</h3>
+        <div class="screen-showcase">
+            <div class="phone-mockup">
+                <div class="phone-statusbar"><span>18:05</span><span>📶 Wi-Fi 🔋 94%</span></div>
+                <div class="phone-body">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                        <span style="font-weight:bold;color:#1565C0;font-size:11px;">👑 Utente: ADMIN</span>
+                        <span style="background:#D32F2F;color:#FFF;padding:4px 8px;border-radius:4px;font-size:9.5px;font-weight:bold;">🚪 LOGOUT</span>
+                    </div>
+                    <div style="background:#E8EAF6;padding:6px;border-radius:6px;font-size:10px;font-weight:bold;color:#1A237E;margin-bottom:8px;">
+                        🟢 🍽️ Ristorante: DA FRANCESCO<br>
+                        <span style="color:#2E7D32;">💾 Spazio Memoria DB: 1.42 MB / 1024 MB</span>
+                    </div>
+                    <div style="text-align:center;font-weight:bold;color:#1A237E;font-size:15px;margin-bottom:8px;">🍽️ GESTIONE RISTORANTE</div>
+
+                    <div class="ui-grid-2">
+                        <div class="ui-card bg-blue"><span class="emoji">⚙️</span>CONFIGURAZIONE</div>
+                        <div class="ui-card bg-green"><span class="emoji">🍽️</span>GESTIONE</div>
+                        <div class="ui-card bg-purple"><span class="emoji">🌟</span>CONSIGLIATI<span class="sub">Piatti da proporre (1-10)</span></div>
+                        <div class="ui-card bg-teal"><span class="emoji">📅</span>PRENOTAZIONI<span class="sub">Agenda Tavoli e Sala</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screen-details" id="cap3-config">
+                <h4>Struttura ad Albero dell'Area ⚙️ CONFIGURAZIONE:</h4>
+                <ul>
+                    <li><b>📖 CONFIGURAZIONE MENU E PREZZI:</b> Gestione di tutte le portate (Antipasti, Primi, Secondi, Carni Speciali a peso, Contorni, Dolci, Bevande, Menu Fisso, Piatto del Giorno), Ingredienti Extra (con prezzo aggiunta e detrazione rimozione), Coperto Adulti/Bambini, Quota Sala Bambini e <b>Sconti di Giornata %</b> (su singolo piatto o sull'intero ordine con validità per date).</li>
+                    <li><b>🖨️ CONFIGURAZIONE STAMPANTI:</b> Scelta per ciascun reparto (Cucina, Griglia, Cassa) tra Termica Wi-Fi, Termica Bluetooth o Stampante Normale A4/A5, con formato carta <code>58mm</code> o <code>80mm</code> e Test di Stampa immediato.</li>
+                    <li id="cap3-pulizia"><b>🧹📊 PULIZIA E REPORT (3 Card Separate):</b>
+                        <ol>
+                            <li><b>🧹 PULIZIA STORICI ORDINI:</b> elimina gli storici dei conti chiusi in un range di date per liberare spazio su Firebase.</li>
+                            <li><b>📅🗑️ PULIZIA PRENOTAZIONI:</b> elimina esclusivamente le prenotazioni passate (con data strettamente inferiore a oggi <code>&lt; oggi</code>), proteggendo sempre le prenotazioni di oggi, quelle future e la Configurazione Standard.</li>
+                            <li><b>📊 REPORT PIATTI PIÙ CONSUMATI E VARIAZIONI:</b> classifiche analitiche per intervallo di date.</li>
+                        </ol>
+                    </li>
+                    <li id="cap3-impostazioni"><b>⚙️ IMPOSTAZIONI (4 Card Separate):</b>
+                        <ol>
+                            <li><b>🧾 DATI RISTORANTE E INTESTAZIONE SCONTRINO:</b> Ragione sociale, P.IVA, indirizzo, telefono e frase di cortesia.</li>
+                            <li id="cap3-telefoni"><b>🛡️📱 PASSWORD E BLOCCO TELEFONI CAMERIERI:</b> Cambio password, Blocco Definitivo Ex-Camerieri e Blocco Temporaneo Fine Giornata / Malattia.</li>
+                            <li><b>📲 CONDIVIDI APP:</b> Estrae il file <code>.apk</code> installato e lo invia direttamente su WhatsApp ai nuovi camerieri tramite <code>FileProvider</code>.</li>
+                            <li><b>🔊🏠 SUONERIA NOTIFICHE E ICONA TELEFONO:</b> Scelta tra 5 suonerie live con ascolto in anteprima e creazione scorciatoia Home.</li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- CAPITOLO 4: CONSIGLIATI E DOPPIA MODALITÀ PRENOTAZIONI              -->
+    <!-- =================================================================== -->
+    <div class="chapter-card pren-theme" id="cap4-consigliati">
+        <h2 class="chapter-title">🌟📅 4. Gestione Consigliati e Doppia Modalità Prenotazioni</h2>
+
+        <h3 class="sub-title">4.1 Gestione Piatti e Ingredienti Consigliati (Priorità Univoca 1-10)</h3>
+        <p>Permette al titolare di selezionare fino a <b>10 elementi tra piatti e ingredienti extra</b> che la cucina deve smaltire con urgenza, assegnando a ciascuno una <b>Priorità univoca da #1 a #10</b>. I due bottoni Tab in alto (<code>➕ INSERISCI / GESTISCI</code> e <code>📋 RIEPILOGO (MAX 10)</code>) sono ottimizzati su riga singola anche per schermi compatti come Pixel 10a. Quando almeno un consigliato è attivo, sul terminale Comanda dei camerieri il pulsante <b><code>🌟 CONSIGLIATI (N)</code></b> lampeggia in giallo oro!</p>
+
+        <!-- PRENOTAZIONE SEMPLICE -->
+        <h3 class="sub-title" id="cap4-pren-semplice">4.2 Modalità 1 (Default): Prenotazione Semplice a Capienza Massima Persone</h3>
+        <div class="screen-showcase">
+            <div class="phone-mockup">
+                <div class="phone-statusbar"><span>19:10</span><span>📶 Wi-Fi 🔋 90%</span></div>
+                <div class="phone-body">
+                    <div class="ui-header">📋 PRENOTAZIONI SALA (CAPIENZA PERSONE)</div>
+                    <div class="ui-btn-row">
+                        <div class="ui-btn bg-slate">📐 CONFIG. SALA</div>
+                        <div class="ui-btn bg-teal">📅 PRENOTAZIONI</div>
+                        <div class="ui-btn bg-slate">📊 RIEPILOGO</div>
+                    </div>
+
+                    <div class="ui-panel-white">
+                        <div style="background:#263238;color:#FFF;padding:6px;border-radius:5px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-weight:bold;">
+                            <span style="color:#FFC107;">◀</span>
+                            <span>📅 OGGI (MER 04/11/2026) 🔽</span>
+                            <span style="color:#FFC107;">▶</span>
+                        </div>
+
+                        <div class="ui-btn-row">
+                            <div class="ui-btn bg-slate" style="font-size:9px;">🔒 CHIUSO</div>
+                            <div class="ui-btn bg-slate" style="font-size:9px;">☀️ PRANZO</div>
+                            <div class="ui-btn bg-teal" style="font-size:9px;">🌙 CENA</div>
+                            <div class="ui-btn bg-slate" style="font-size:9px;">☀️🌙 ENTRAMBI</div>
+                        </div>
+
+                        <div style="background:#E0F7FA;padding:6px;border-radius:6px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                            <span style="font-weight:bold;color:#004D40;font-size:10.5px;">👥 Prenotati: 68 (Disp: 12) / Max:</span>
+                            <span class="ui-input" style="width:42px;text-align:center;">80</span>
+                            <span class="ui-btn bg-darkgreen" style="flex:0;padding:5px 8px;">💾 TETTO</span>
+                        </div>
+
+                        <div class="ui-btn-row">
+                            <div class="ui-btn bg-green">➕ NUOVA PRENOTAZIONE</div>
+                            <div class="ui-btn bg-blue">🪑 + TAVOLO VUOTO</div>
+                        </div>
+
+                        <!-- Record Prenotazione -->
+                        <div style="border:2px solid #1565C0;border-radius:8px;padding:7px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;">
+                            <div>
+                                🔴 🪑 <b>Tav. 4</b> | 🕒 <b>20:30</b> | 👥 <b>6 Pers.</b><br>
+                                👤 <b style="color:#0D47A1;">Famiglia Bianchi</b>
+                            </div>
+                            <div style="display:flex;gap:3px;">
+                                <span class="ui-btn bg-blue" style="padding:5px 7px;">✏️</span>
+                                <span class="ui-btn bg-red" style="padding:5px 7px;">🗑️</span>
+                            </div>
+                        </div>
+
+                        <!-- Record Tavolo Vuoto -->
+                        <div style="background:#E8F5E9;border:2px solid #2E7D32;border-radius:8px;padding:7px;display:flex;justify-content:space-between;align-items:center;">
+                            <div>
+                                🟢 <b>TAVOLO 8 — VUOTO / LIBERO</b><br>
+                                <span style="color:#2E7D32;">Capienza tavolo: (4 posti)</span>
+                            </div>
+                            <div style="display:flex;gap:3px;">
+                                <span class="ui-btn bg-green" style="padding:5px 6px;font-size:9px;">➕ PRENOTA</span>
+                                <span class="ui-btn bg-blue" style="padding:5px 7px;">✏️</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screen-details">
+                <h4>Come funziona la Prenotazione Semplice (a Capienza Persone):</h4>
+                <ol>
+                    <li><b>Tab 1 (<code>📐 CONFIG. SALA</code>):</b> Imposti la <b>Capienza Massima di Persone</b> della sala (es. <code>80</code> persone) e i giorni di apertura settimanali (Chiuso, Solo Pranzo, Solo Cena, Pranzo e Cena — senza doppia serata).</li>
+                    <li><b>Tab 2 (<code>📅 PRENOTAZIONI</code>):</b>
+                        <ul>
+                            <li>Ogni giorno eredita il tetto massimo di default (es. 80), ma puoi <b>modificare il tetto massimo giorno per giorno</b> (es. portarlo a 100 o a 60) e salvarlo col tasto <code>💾 TETTO</code> senza toccare gli altri giorni!</li>
+                            <li>Premendo <b><code>➕ NUOVA PRENOTAZIONE</code></b> inserisci: <b>Numero Tavolo (Opzionale)</b>, <b>Numero di Persone (Obbligatorio)</b>, <b>Orario</b> (con inserimento automatico dei due punti <code>:</code>) e <b>Nome e Cognome</b>.</li>
+                            <li><b>🚨 Warning Superamento Tetto Massimo:</b> Se con le persone inserite raggiungi o superi la capienza massima del giorno (es. 82 su 80), scatta un <b>Alert di Warning</b> che avverte il ristoratore prima di confermare!</li>
+                            <li>Premendo <b><code>🪑 + TAVOLO VUOTO</code></b> il ristoratore può inserire i tavoli liberi non prenotati (con capienza persone opzionale) e convertirli in prenotati con 1 solo tocco sul tasto verde <code>➕ PRENOTA</code>!</li>
+                        </ul>
+                    </li>
+                    <li><b>Tab 3 (<code>📊 RIEPILOGO</code>):</b> Dotato di calendario scorribile indipendente, mostra il riepilogo immediato dei <b>Posti Liberi/Occupati</b>, l'elenco dei <b>🟢 Tavoli Vuoti</b> e l'elenco delle <b>🔴 Prenotazioni Attive</b>.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- PRENOTAZIONE A TAVOLI -->
+        <h3 class="sub-title" id="cap4-pren-tavoli">4.3 Modalità 2 (Attivabile da Root): Prenotazione a Tavoli, Doppia Serata e Semaforo</h3>
+        <p>Quando dalla Console Root si seleziona il RadioButton <b>🍽️ Prenotazione a Tavoli</b>, l'agenda attiva la gestione per pianta tavoli con:</p>
+        <ul>
+            <li><b>Scelta per ogni giorno</b> tra <code>📐 USA CONFIG. STD</code> e <code>🆕 NUOVA CONFIG. GIORNO</code> (senza che le modifiche alla Config. Standard tocchino mai i giorni già salvati).</li>
+            <li><b>Posti, Orario e Nome/Cognome tutti sulla stessa riga</b> e <b>numero di posti indipendente per ciascun turno</b> (un tavolo può essere da 4 posti a Pranzo, da 8 in 1° Serata e da 6 in 2° Serata).</li>
+            <li><b>Tab <code>🚦 SEMAFORO</code> con calendario scorribile indipendente:</b> mostra i tavoli 🟢 Liberi tutta la sera, 🟡 Liberi a metà sera (1 turno) e 🔴 Completi, con filtro istantaneo per numero minimo di posti.</li>
+        </ul>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- CAPITOLO 5: OPERATIVITÀ SALA, CUCINA E CASSA                        -->
+    <!-- =================================================================== -->
+    <div class="chapter-card comanda-theme" id="cap5-comanda">
+        <h2 class="chapter-title">📱👨‍🍳💶 5. Manuale Operativo: Comanda, Cucina/Griglia e Cassa</h2>
+
+        <!-- COMANDA CAMERIERE -->
+        <h3 class="sub-title">5.1 Terminale Comanda Cameriere e Gestione Pesi Carni Speciali</h3>
+        <div class="screen-showcase">
+            <div class="phone-mockup">
+                <div class="phone-statusbar"><span>20:30</span><span>📶 Wi-Fi 🔋 88%</span></div>
+                <div class="phone-body">
+                    <div style="display:flex;gap:4px;margin-bottom:6px;">
+                        <div class="ui-input" style="flex:1;">🟢 TAVOLO 4 (4 cop.) ▼</div>
+                        <div class="ui-btn bg-amber" style="flex:0.8;">🌟 CONSIGLIATI (3)</div>
+                    </div>
+
+                    <div class="ui-panel-white" style="padding:8px;">
+                        <div style="display:flex;gap:4px;margin-bottom:6px;">
+                            <div class="ui-input" style="width:55px;background:#CFD8DC;">Tav: 4</div>
+                            <div class="ui-input" style="flex:1;">Adulti: 3</div>
+                            <div class="ui-input" style="flex:1;">Bamb: 1</div>
+                            <div class="ui-input" style="flex:1;">Sala: 1</div>
+                        </div>
+                        <div class="ui-btn-row">
+                            <div class="ui-btn bg-slate">➕ APRI NUOVO</div>
+                            <div class="ui-btn bg-green">💾 SALVA COPERTI</div>
+                            <div class="ui-btn bg-slate">🔒 TAVOLO INVIATO</div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;gap:4px;margin-bottom:6px;">
+                        <div class="ui-input" style="flex:1;">🔥 4. CARNI SPECIALI (A Peso) ▼</div>
+                        <div class="ui-btn bg-blue" style="flex:0.35;">VAI ➔</div>
+                    </div>
+
+                    <div class="ui-accordion bg-green">🔼 🟢 ORDINE INIZIALE (2 Piatti - ore 20:15) INVIATO</div>
+                    <div class="ui-accordion bg-orange">🔼 🟠 AGGIORNAMENTO 1 (1 Piatto - DA INVIARE)</div>
+                    <div class="ui-sub-accordion">▾ 🔥 SEZIONE: CARNI SPECIALI (1)</div>
+                    <div class="ui-dish-row">
+                        <div>
+                            <b style="color:#E65100;font-size:9.5px;">[CARNI_SPECIALI]</b><br>
+                            <b>4 - Filetto alla Brace [450g] (GRIGLIA)</b>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:3px;">
+                            <span class="prio-box">2</span>
+                            <span class="ui-btn bg-blue" style="padding:4px 6px;">✏️</span>
+                            <span class="ui-btn bg-red" style="padding:4px 6px;">🗑️</span>
+                        </div>
+                    </div>
+
+                    <div class="ui-btn-row" style="margin-top:8px;">
+                        <div class="ui-btn bg-slate">⬅️ INDIETRO</div>
+                        <div class="ui-btn bg-ruby">⚖️ PESI (1 ✔)</div>
+                        <div class="ui-btn bg-green">🚀 INVIA ORDINE</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screen-details" id="cap5-pesi">
+                <h4>Funzionalità Chiave del Terminale Comanda:</h4>
+                <ul>
+                    <li><b>Apertura e Blocco Sicurezza Tavolo:</b> I tavoli già inviati in cucina sono bloccati contro l'annullamento accidentale (<code>🔒 TAVOLO INVIATO</code>) e le righe già inviate mostrano il badge <code>🔒 INVIATO</code>. Ogni nuova aggiunta finisce automaticamente in un nuovo Accordion arancione (<code>🟠 AGGIORNAMENTO 1 - DA INVIARE</code>).</li>
+                    <li><b>Variazioni Rapide (<code>➕ INGR.</code> / <code>➖ INGR.</code>) e Controllo Ricetta:</b> Avvisa il cameriere se un ingrediente del piatto è terminato oggi o se sta aggiungendo un ingrediente già presente nella ricetta base.</li>
+                    <li><b>Pulsante <code>⚖️ PESI</code> ad Alto Contrasto (anche Post-Invio):</b>
+                        <ul>
+                            <li>Quando ci sono carni a peso senza grammi indicati, il pulsante diventa <b>Giallo Ambra (<code>#FFB300</code>) con scritta NERA <code>⚖️ PESI (N DA METTERE)</code></b>.</li>
+                            <li>Quando tutti i pesi sono stati inseriti, diventa <b>Bordeaux Rubino Scuro (<code>#880E4F</code>) con scritta e spunta BIANCA <code>⚖️ PESI (N ✔)</code></b>.</li>
+                            <li>Toccandolo si apre la pagina dedicata con gli accordion degli invii (senza orario superfluo nell'intestazione per massima leggibilità su schermi compatti), dove inserire o aggiornare i grammi anche dopo che la comanda è già stata inviata in cucina, aggiornando all'istante il conto in Cassa!</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SCHERMI CUCINA E GRIGLIA -->
+        <h3 class="sub-title" id="cap5-cucina">5.2 Schermi Operativi Cucina e Griglia (Elenco o Tabellare Full-Width)</h3>
+        <p>I terminali <b>👨‍🍳 Schermo Cucina</b> e <b>🔥 Schermo Griglia</b> mostrano solo i piatti effettivamente inviati dai camerieri, divisi per tavolo e per invio (Ordine Iniziale, Aggiornamento 1...), con filtro per Priorità e pulsante verde <b><code>✅ FATTO</code></b> su ogni piatto (indipendente tra Cucina e Griglia). Se dalla Root è attiva la <b>Modalità Tabellare</b>, sia lo schermo sia lo scontrino termico generano una griglia a larghezza piena con le abbreviazioni di stampa:</p>
+
+        <div class="receipt-preview">================================
+ REPARTO: CUCINA
+ TAVOLO 4 (Adulti: 3, Bamb: 1)
+*** ORDINE INIZIALE ***
+Ora: 04/11/2026 20:30
+================================
+PR|PIATTO               |SEZ|REP
+--+---------------------+---+---
+  |Ant.Casa X2          |ANT|CUC
+1 |---------------------|---|---
+  |Spag.Carbonara       |PRI|CUC
+  | +agg. Pecorino      |   |CUC
+--+---------------------+---+---
+2 |Filetto Brace [450g] |CAR|GRI
+  | *Nota: Cottura media|   |
+--------------------------------
+*** NOTE AGGIUNTIVE ORDINE ***
+Portare antipasti e primi insieme
+================================</div>
+
+        <!-- CASSA E STRUMENTI FLOATING -->
+        <h3 class="sub-title" id="cap5-cassa">5.3 Terminale Cassa, Strumenti Flottanti Grafite e Stampa con Logo</h3>
+        <div class="screen-showcase">
+            <div class="phone-mockup">
+                <div class="phone-statusbar"><span>21:45</span><span>📶 Wi-Fi 🔋 82%</span></div>
+                <div class="phone-body" style="position:relative;">
+                    <div class="ui-header">💶 GESTIONE CASSA E CONTI</div>
+                    <div class="ui-input" style="margin-bottom:6px;">🟢 TAVOLO 4 — € 68.50 ▼</div>
+
+                    <div class="ui-panel-white" style="font-size:10.5px;">
+                        <div style="font-weight:bold;color:#1A237E;">Riepilogo Conto Tavolo 4:</div>
+                        <div>• 3x Coperto Adulti: € 6.00</div>
+                        <div>• 1x Coperto Bambini: € 1.00</div>
+                        <div>• 2x Antipasto della Casa: € 20.00</div>
+                        <div>• 1x Filetto alla Brace [450g]: € 29.25</div>
+                        <hr>
+                        <div style="font-size:13px;font-weight:bold;color:#2E7D32;text-align:right;">TOTALE DA PAGARE: € 56.25</div>
+                    </div>
+
+                    <!-- Pannello Floating Grafite -->
+                    <div style="background:#263238;border:2px solid #B0BEC5;border-radius:12px;padding:8px;color:#FFF;margin-bottom:8px;">
+                        <div style="text-align:center;font-size:10px;font-weight:bold;color:#ECEFF1;margin-bottom:4px;">🛠️ STRUMENTI CASSA</div>
+                        <div style="font-size:11px;margin-bottom:4px;">☑️ 📱 Stampa QR Code</div>
+                        <div class="ui-btn" style="background:#37474F;margin-bottom:4px;display:block;">🔼 CHIUDI ACCORDION</div>
+                        <div class="ui-btn bg-amber" style="display:block;">🧮 CALCOLATRICE CON MEMO</div>
+                    </div>
+
+                    <div class="ui-btn-row">
+                        <div class="ui-btn bg-blue">🖨️ STAMPA CONTO</div>
+                        <div class="ui-btn bg-orange">➗ DIVIDI CONTO</div>
+                        <div class="ui-btn bg-green">✅ CHIUDI TAVOLO</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screen-details">
+                <h4>Funzionalità Avanzate del Terminale Cassa:</h4>
+                <ul>
+                    <li><b>Pannello Flottante Trascinabile in Grafite Antracite (<code>🛠️ STRUMENTI CASSA</code>):</b>
+                        <ul>
+                            <li>Linguetta laterale trascinabile liberamente a destra o a sinistra dello schermo.</li>
+                            <li>Spunta rapida <b><code>📱 Stampa QR Code</code></b> per decidere scontrino per scontrino se includere il QR Code.</li>
+                            <li>Tasto <b><code>🔼 CHIUDI ACCORDION</code></b> per compattare con 1 tocco le liste lunghe.</li>
+                            <li><b><code>🧮 CALCOLATRICE CON MEMO</code>:</b> permette di importare il totale del conto (<code>📥 TOT. CONTO</code>), fare calcoli di resto o quote e salvarli nel <b>Memo Conti Salvati</b>. Ogni riga del Memo ha il pulsante verde <b><code>UTILIZZA</code></b> per richiamare subito l'importo nel display!</li>
+                        </ul>
+                    </li>
+                    <li><b>Divisione Conto:</b> Alla Romana (in parti uguali) oppure <b>Per Singoli Piatti / Quote</b> (scalando man mano i piatti pagati da ciascun cliente).</li>
+                    <li><b>Anteprima e Stampa Scontrino su Stampante Normale con Logo:</b>
+                        <ul>
+                            <li>Quando è configurata una Stampante Normale (<code>NORMALE_A4</code> / <code>NORMALE_A5</code> / <code>NORMALE_80</code>), premendo Stampa si apre l'<b>Anteprima Grafica dello Scontrino</b> completa di Logo, articoli incolonnati e QR Code.</li>
+                            <li>Premendo il bottone principale verde <b><code>🖨️ STAMPA CON LOGO</code></b>, l'app invia il documento grafico al driver Android (<code>PrintManager</code>) stampando sul foglio sia il Logo sia il QR Code; premendo invece <b><code>⚡ Solo Testo</code></b> invia il testo rapido sulla porta <code>9100</code>.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

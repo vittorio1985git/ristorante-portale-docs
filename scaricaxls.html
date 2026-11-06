@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Download Modello Excel e CSV — Gestione Ristorante</title>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; padding: 36px; background: #ECEFF1;">
+    <div style="max-width: 740px; margin: 0 auto; background: #FFFFFF; padding: 30px; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.14);">
+        <h2 style="color: #1A237E; margin-top: 0;">📊 Modello Completo Listino Menu Ristorante (.XLS / .CSV)</h2>
+        <p style="color: #37474F; font-size: 14.5px; line-height: 1.5;">
+            Il modello è allineato al 100% con tutte le nuove configurazioni dell'app:<br>
+            include <b>ABBREVIAZIONE_STAMPA</b> (per scontrini cucina/griglia), <b>CARNI_SPECIALI</b> (a peso), <b>PIATTO_GIORNO</b>, <b>DISPONIBILE</b>, <b>CONSIGLIATO</b>, <b>PRIORITA_CONSIGLIATO (1-10)</b>, <b>INVIA_CUCINA</b> e <b>INVIA_GRIGLIA</b>.<br>
+            <b>Non serve scrivere 0</b> nei campi numerici opzionali: se lasci una cella vuota vale automaticamente <b>0</b>!
+        </p>
+
+        <button onclick="scaricaXls()" style="width: 100%; padding: 16px 24px; font-size: 16.5px; background: #2E7D32; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-bottom: 14px;">
+            📥 1. SCARICA MODELLO EXCEL CON TENDINE (.XLS)
+        </button>
+
+        <button onclick="scaricaCsv()" style="width: 100%; padding: 14px 24px; font-size: 16px; background: #1565C0; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">
+            📄 2. SCARICA MODELLO PRONTO (.CSV)
+        </button>
+    </div>
+
+<script>
+const xmlExcel = `<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+ <Styles>
+  <Style ss:ID="Header">
+   <Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="10.5"/>
+   <Interior ss:Color="#263238" ss:Pattern="Solid"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="RegolaTitolo">
+   <Font ss:Bold="1" ss:Color="#880E4F" ss:Size="13"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Listino_Menu">
+  <Table>
+   <Column ss:Width="130"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="175"/>
+   <Column ss:Width="140"/>
+   <Column ss:Width="160"/>
+   <Column ss:Width="190"/>
+   <Column ss:Width="80"/>
+   <Column ss:Width="115"/>
+   <Column ss:Width="115"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="130"/>
+   <Row ss:Height="25">
+    <Cell ss:StyleID="Header"><Data ss:Type="String">SEZIONE</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">NUMERO_MENU</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">NOME</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">ABBREVIAZIONE_STAMPA</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">DESCRIZIONE</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">INGREDIENTI_BASE</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">PREZZO</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">DETRAZIONE_MENO</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">USABILE_AGGIUNTA</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">INVIA_CUCINA</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">INVIA_GRIGLIA</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">DISPONIBILE</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">CONSIGLIATO</Data></Cell>
+    <Cell ss:StyleID="Header"><Data ss:Type="String">PRIORITA_CONSIGLIATO</Data></Cell>
+   </Row>
+   <Row><Cell><Data ss:Type="String">INGREDIENTE</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">Patatine</Data></Cell><Cell><Data ss:Type="String">Patat.</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">2.00</Data></Cell><Cell><Data ss:Type="Number">1.50</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">INGREDIENTE</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">Verdure Grigliate</Data></Cell><Cell><Data ss:Type="String">Verd.Grig.</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">1.50</Data></Cell><Cell><Data ss:Type="Number">1.50</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">INGREDIENTE</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">Tartufo Nero</Data></Cell><Cell><Data ss:Type="String">Tartufo</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">5.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="Number">2</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">ANTIPASTO</Data></Cell><Cell><Data ss:Type="Number">1</Data></Cell><Cell><Data ss:Type="String">Antipasto della Casa</Data></Cell><Cell><Data ss:Type="String">Ant.Casa</Data></Cell><Cell><Data ss:Type="String">Tagliere misto</Data></Cell><Cell><Data ss:Type="String">Salumi, Formaggi</Data></Cell><Cell><Data ss:Type="Number">10.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">PRIMO</Data></Cell><Cell><Data ss:Type="Number">2</Data></Cell><Cell><Data ss:Type="String">Spaghetti alla Carbonara</Data></Cell><Cell><Data ss:Type="String">Spag.Carbonara</Data></Cell><Cell><Data ss:Type="String">Ricetta classica</Data></Cell><Cell><Data ss:Type="String">Guanciale, Pecorino</Data></Cell><Cell><Data ss:Type="Number">11.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">SECONDO</Data></Cell><Cell><Data ss:Type="Number">3</Data></Cell><Cell><Data ss:Type="String">Cotoletta e Patatine</Data></Cell><Cell><Data ss:Type="String">Cotoletta+Pat</Data></Cell><Cell><Data ss:Type="String">Panatura dorata</Data></Cell><Cell><Data ss:Type="String">Vitello, Patatine</Data></Cell><Cell><Data ss:Type="Number">12.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="Number">1</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">CARNI_SPECIALI</Data></Cell><Cell><Data ss:Type="Number">4</Data></Cell><Cell><Data ss:Type="String">Filetto alla Brace</Data></Cell><Cell><Data ss:Type="String">Filetto Brace</Data></Cell><Cell><Data ss:Type="String">Prezzo all etto (100g)</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">6.50</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">CONTORNO</Data></Cell><Cell><Data ss:Type="Number">5</Data></Cell><Cell><Data ss:Type="String">Patate al Forno</Data></Cell><Cell><Data ss:Type="String">Pat.Forno</Data></Cell><Cell><Data ss:Type="String">Con rosmarino</Data></Cell><Cell><Data ss:Type="String">Patatine</Data></Cell><Cell><Data ss:Type="Number">4.50</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">DOLCE</Data></Cell><Cell><Data ss:Type="Number">6</Data></Cell><Cell><Data ss:Type="String">Tiramisu della Casa</Data></Cell><Cell><Data ss:Type="String">Tiramisu</Data></Cell><Cell><Data ss:Type="String">Fatto in casa</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">5.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">BEVANDA</Data></Cell><Cell><Data ss:Type="Number">7</Data></Cell><Cell><Data ss:Type="String">Coca Cola 33cl</Data></Cell><Cell><Data ss:Type="String">Coca 33</Data></Cell><Cell><Data ss:Type="String">Lattina</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">3.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">COPERTO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">Coperto Adulti</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">2.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">COPERTO_BAMBINI</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">Coperto Bambini</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">1.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">SALA_BAMBINI</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">Quota Sala Bambini</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">Baby Sitter</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">5.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">MENU_FISSO</Data></Cell><Cell><Data ss:Type="Number">8</Data></Cell><Cell><Data ss:Type="String">Menu Completo</Data></Cell><Cell><Data ss:Type="String">Menu Compl.</Data></Cell><Cell><Data ss:Type="String">Menu degustazione</Data></Cell><Cell><Data ss:Type="String">Antipasto della Casa, Cotoletta e Patatine</Data></Cell><Cell><Data ss:Type="Number">25.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">PIATTO_GIORNO</Data></Cell><Cell><Data ss:Type="Number">9</Data></Cell><Cell><Data ss:Type="String">Lasagna Tradizionale</Data></Cell><Cell><Data ss:Type="String">Lasagna</Data></Cell><Cell><Data ss:Type="String">Specialita del giorno</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="Number">13.00</Data></Cell><Cell><Data ss:Type="String"></Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String">SI</Data></Cell><Cell><Data ss:Type="String">NO</Data></Cell><Cell><Data ss:Type="String"></Data></Cell></Row>
+  </Table>
+  <x:DataValidation>
+   <x:Range>R2C1:R500C1</x:Range>
+   <x:Type>List</x:Type>
+   <x:CellRangeList/>
+   <x:Value>&quot;INGREDIENTE,ANTIPASTO,PRIMO,SECONDO,CARNI_SPECIALI,CONTORNO,DOLCE,BEVANDA,COPERTO,COPERTO_BAMBINI,SALA_BAMBINI,MENU_FISSO,PIATTO_GIORNO&quot;</x:Value>
+  </x:DataValidation>
+  <x:DataValidation>
+   <x:Range>R2C9:R500C13</x:Range>
+   <x:Type>List</x:Type>
+   <x:CellRangeList/>
+   <x:Value>&quot;SI,NO&quot;</x:Value>
+  </x:DataValidation>
+ </Worksheet>
+ <Worksheet ss:Name="REGOLE_DI_BUSINESS">
+  <Table>
+   <Column ss:Width="860"/>
+   <Row ss:Height="24"><Cell ss:StyleID="RegolaTitolo"><Data ss:Type="String">MANUALE E REGOLE DI COMPILAZIONE DEL FILE EXCEL / CSV:</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">1. COLONNA A (SEZIONE): Scegli dal menu a tendina (INGREDIENTE, ANTIPASTO, PRIMO, SECONDO, CARNI_SPECIALI, CONTORNO, DOLCE, BEVANDA, COPERTO, COPERTO_BAMBINI, SALA_BAMBINI, MENU_FISSO, PIATTO_GIORNO).</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">2. COLONNA B (NUMERO_MENU): Numero univoco per i piatti; puoi lasciarlo VUOTO per INGREDIENTE, COPERTO, COPERTO_BAMBINI e SALA_BAMBINI.</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">3. COLONNA D (ABBREVIAZIONE_STAMPA): Nome corto opzionale per gli scontrini di Cucina e Griglia (se lasciato vuoto usa il NOME intero).</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">4. COLONNA G (PREZZO): Inserisci il prezzo (per CARNI_SPECIALI indica il prezzo all etto / 100g).</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">5. COLONNE J e K (INVIA_CUCINA / INVIA_GRIGLIA): Scegli SI o NO per decidere su quale reparto deve uscire il piatto.</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">6. COLONNE L, M, N (DISPONIBILE / CONSIGLIATO / PRIORITA_CONSIGLIATO): Permettono di preimpostare disponibilità e priorità consigliati (da 1 a 10).</Data></Cell></Row>
+  </Table>
+ </Worksheet>
+</Workbook>`;
+
+const csvTesto = [
+    "SEZIONE;NUMERO_MENU;NOME;ABBREVIAZIONE_STAMPA;DESCRIZIONE;INGREDIENTI_BASE;PREZZO;DETRAZIONE_MENO;USABILE_AGGIUNTA;INVIA_CUCINA;INVIA_GRIGLIA;DISPONIBILE;CONSIGLIATO;PRIORITA_CONSIGLIATO",
+    "INGREDIENTE;;Patatine;Patat.;;;2.00;1.50;SI;SI;NO;SI;NO;",
+    "INGREDIENTE;;Verdure Grigliate;Verd.Grig.;;;1.50;1.50;SI;NO;SI;SI;NO;",
+    "INGREDIENTE;;Tartufo Nero;Tartufo;;;5.00;;SI;SI;NO;SI;SI;2",
+    "ANTIPASTO;1;Antipasto della Casa;Ant.Casa;Tagliere misto;Salumi, Formaggi;10.00;;SI;SI;NO;SI;NO;",
+    "PRIMO;2;Spaghetti alla Carbonara;Spag.Carbonara;Ricetta classica;Guanciale, Pecorino;11.00;;SI;SI;NO;SI;NO;",
+    "SECONDO;3;Cotoletta e Patatine;Cotoletta+Pat;Panatura dorata;Vitello, Patatine;12.00;;SI;SI;NO;SI;SI;1",
+    "CARNI_SPECIALI;4;Filetto alla Brace;Filetto Brace;Prezzo all etto (100g);;6.50;;SI;NO;SI;SI;NO;",
+    "CONTORNO;5;Patate al Forno;Pat.Forno;Con rosmarino;Patatine;4.50;;SI;SI;NO;SI;NO;",
+    "DOLCE;6;Tiramisu della Casa;Tiramisu;Fatto in casa;;5.00;;SI;SI;NO;SI;NO;",
+    "BEVANDA;7;Coca Cola 33cl;Coca 33;Lattina;;3.00;;SI;NO;NO;SI;NO;",
+    "COPERTO;;Coperto Adulti;;;;2.00;;SI;NO;NO;SI;NO;",
+    "COPERTO_BAMBINI;;Coperto Bambini;;;;1.00;;SI;NO;NO;SI;NO;",
+    "SALA_BAMBINI;;Quota Sala Bambini;;Baby Sitter;;5.00;;SI;NO;NO;SI;NO;",
+    "MENU_FISSO;8;Menu Completo;Menu Compl.;Menu degustazione;Antipasto della Casa, Cotoletta e Patatine;25.00;;SI;SI;NO;SI;NO;",
+    "PIATTO_GIORNO;9;Lasagna Tradizionale;Lasagna;Specialita del giorno;;13.00;;SI;SI;NO;SI;NO;"
+].join("\r\n");
+
+function scaricaXls() {
+    const blob = new Blob([xmlExcel], { type: 'application/vnd.ms-excel' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Modello_Menu_Con_Combo.xls';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function scaricaCsv() {
+    const blob = new Blob([csvTesto], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Modello_Menu_Ristorante.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+window.onload = scaricaXls;
+</script>
+</body>
+</html>
